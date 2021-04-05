@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
+
+p {
+  margin: 0;
+}
+
+.builder {
+  background: repeating-linear-gradient(45deg, #e1e1e1, #d7d7d7 10px, #cdcdcd 10px, #b9b9b9 20px);
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+
+  &__content {
+    border: 1px solid #5f5f5f;
+    position: relative;
+  }
+
+  &__main {
+    position: relative;
+    overflow: hidden;
+    background: #f9f9f9;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+  }
+}
+
+.zoom-builder {
+  position: absolute;
+  top: 45%;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .zoom-button {
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: #fff;
+
+    &:disabled {
+      opacity: 0.4;
+    }
+
+    &:first-child {
+      margin-bottom: 10px;
+    }
+
+    &:hover {
+      background: #f9f7f7;
+    }
+  }
+}
+
+.mouse {
+  border: 1px solid #ccc;
+  border-radius: 17px;
+  height: 50px;
+  width: 30px;
+  display: block;
+  z-index: 10;
+  margin-bottom: 10px;
+  background: #ffffff;
+
+  .wheel {
+    position: relative;
+    border-radius: 4px;
+    background: #ccc;
+    width: 2px;
+    height: 10px;
+    margin: auto;
+    animation-name: wheel;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+  }
+}
+
+@keyframes wheel {
+  0% {
+    top: 3px;
+    opacity: 0;
+  }
+  30% {
+    top: 10px;
+    opacity: 1;
+  }
+  100% {
+    top: 18px;
+    opacity: 0;
+  }
+}

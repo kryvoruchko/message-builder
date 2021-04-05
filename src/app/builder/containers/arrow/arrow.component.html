@@ -1,0 +1,39 @@
+<svg class="builder-links">
+    <g class="builder-links__arrow" id="arrow_1" *ngFor="let item of builderService.linksArray">
+      <g class="builder-links__item" *ngFor="let arrow of item.toArr">
+          <path
+            [attr.d]="
+              'M' + arrow.fromObj.fromItemX + ',' + (arrow.fromObj.fromItemY + 25) + ' C' + (arrow.fromObj.fromItemX + 100) +
+              ',' + (arrow.fromObj.fromItemY + 25) + ' ' + (arrow.toObj.toItemX - 95) + ',' + (arrow.toObj.toItemY + 10) +
+              ' ' + (arrow.toObj.toItemX + 5) + ',' + (arrow.toObj.toItemY + 10) + ''"
+            stroke="#2C8BC2"
+            stroke-width="5"
+            class="arrow"
+            fill="none">
+          </path>
+
+          <path [attr.d]="
+            'M' + arrow.fromObj.fromItemX + ',' + (arrow.fromObj.fromItemY + 25) + ' C' + (arrow.fromObj.fromItemX + 100) +
+            ',' + (arrow.fromObj.fromItemY + 25) + ' ' + (arrow.toObj.toItemX - 95) + ',' + (arrow.toObj.toItemY + 10) +
+            ' ' + (arrow.toObj.toItemX + 5) + ',' + (arrow.toObj.toItemY + 10) + ''"
+            stroke="#000" stroke-width="80"
+            (mouseover)="openRemoveBtn(arrow, true)"
+            (mouseleave)="openRemoveBtn(arr, false)"
+            class="arrow"
+            style="stroke-opacity: 0;"
+            fill="none">
+          </path>
+      </g>
+    </g>
+</svg>
+
+<button class="btn btn-danger"
+  (mouseover)="openRemoveBtn(arr, true)"
+  (click)="deleteLink()"
+  [ngClass]="{'active': openBtn && !builderService.statusCreateLink}"
+  [ngStyle]="{
+    'top': (((arr?.fromObj?.fromItemY + 25) + (arr?.toObj?.toItemY + 20)) / 2) + 'px',
+    'left': ((arr?.fromObj?.fromItemX + (arr?.toObj?.toItemX - 45)) / 2) + 'px'
+  }">
+  <i class="far fa-trash-alt"></i>
+</button>

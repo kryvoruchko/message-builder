@@ -1,0 +1,25 @@
+.title-sidebar {
+  background: #C5C7C4;
+
+  & > input {
+    color: #ffffff !important;
+  }
+}
+
+.widget-content-not-found {
+  padding: 40px 0;
+  text-align: center;
+  position: relative;
+
+  & > span {
+    color: #8492a6;
+  }
+}
+
+.continue-next-step {
+  padding-top: 20px;
+  border-top: 1px solid #E0E6ED;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}

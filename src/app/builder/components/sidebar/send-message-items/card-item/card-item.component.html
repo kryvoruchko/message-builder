@@ -1,0 +1,94 @@
+<div class="text-item-content position-relative margin-bottom--25">
+
+  <div class="card-content position-relative">
+
+    <div class="card-array" *ngFor="let card of item?.params['cards_array']; let i = index"
+      [ngClass]="{
+        'active': card?.active,
+        'border-bottom-transparent': card?.buttons.length > 0
+      }">
+
+      <div class="card-container">
+        <div class="prev-card-items">
+          <button class="btn-step"
+            [disabled]="i === 0"
+            (click)="builderFunctionsService.prevCardItem(item?.params?.cards_array, i)">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+        </div>
+
+        <div class="card-image-container">
+          <button *ngIf="card?.img_url"
+            (click)="builderFunctionsService.deleteImageCardItem(card)"
+            class="delete-card-img">
+            <i class="fas fa-times"></i>
+          </button>
+          <img *ngIf="card?.img_url" [src]="card?.img_url" width="100%" draggable="false">
+
+          <label class="file-upload">
+            <i class="far fa-image"></i>
+            <span>Image</span>
+            <input
+              type="file"
+              accept="image/*"
+              (change)="uploadFile(card, $event.target.files)"/>
+          </label>
+        </div>
+
+        <div class="card-text-container position-relative">
+          <div class="text">
+            <input type="text"
+              #title placeholder="Titel eingeben..."
+              maxlength="45"
+              [(ngModel)]="card.title"
+              (change)="builderFunctionsService.setInputValue(card, 'title', title.value)">
+          </div>
+
+          <div class="text">
+            <textarea
+              placeholder="Geben Sie Ihren Untertitel ein..."
+              maxlength="80"
+              #subtitle
+              [(ngModel)]="card.subtitle"
+              (change)="builderFunctionsService.setInputValue(card, 'subtitle', subtitle.value)">
+            </textarea>
+        </div>
+
+          <input type="text"
+            placeholder="Card URL"
+            [(ngModel)]="card.url_page">
+        </div>
+
+        <div class="next-card-items">
+          <button class="btn-step"
+            *ngIf="i === item?.params?.cards_array.length - 1"
+            [disabled]="item?.params?.cards_array.length === 10"
+            (click)="builderFunctionsService.createNewCardItem(item?.params?.cards_array, i)">
+            <i class="fas fa-plus"></i>
+          </button>
+          <button class="btn-step"
+            *ngIf="i !== item?.params?.cards_array.length - 1"
+            (click)="builderFunctionsService.nextCardItem(item?.params?.cards_array, i)">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <div class="sidebar-actions">
+          <button class="trash-sidebar"
+            (click)="builderFunctionsService.deleteCardItem(item?.params?.cards_array, i, item)">
+            <i class="fas fa-times"></i>
+          </button>
+          <button class="drop-sidebar-items">
+            <i class="fas fa-arrows-alt-v"></i>
+          </button>
+          <button (click)="builderFunctionsService.cloneItemFromSidebar(item)">
+            <i class="far fa-clone"></i>
+          </button>
+        </div>
+      </div>
+
+      <app-buttons-item [config]="card['buttons']" [opened]="opened" [type]="'some'"></app-buttons-item>
+    </div>
+
+  </div>
+</div>

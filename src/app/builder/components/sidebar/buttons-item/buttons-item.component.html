@@ -1,0 +1,51 @@
+<div class="container-buttons-send-message" *ngIf="type === 'some'">
+  <div class="button-content"
+    *ngFor="let button of config; let i = index">
+
+    <div class="name-button">
+      {{ button?.title }}
+    </div>
+
+    <div class="link-button"
+      *ngIf="!button?.next_step">
+      <i class="far fa-circle"></i>
+    </div>
+
+    <div class="link-button next"
+      *ngIf="button?.next_step"
+      (click)="builderFunctionsService.transitionToNextStep(button?.next_step)">
+      <i class="fas fa-chevron-right"></i>
+    </div>
+  </div>
+
+  <button class="bottom-button" *ngIf="config.length < 3" (click)="createNewButton()">+ Add button</button>
+</div>
+
+<div class="container-buttons-send-message" *ngIf="type === 'main'">
+  <button class="bottom-button choose-step" *ngIf="!config?.next_step">
+    Choose next step
+  </button>
+
+  <div class="next-step-button margin-0"
+    *ngIf="config?.next_step"
+    [ngClass]="{
+      'grey': (config?.next_step | typeNextStep) === 'send_message',
+      'violet': (config?.next_step | typeNextStep) === 'randomizer'
+    }">
+    <div class="info-next-step"
+      (click)="builderFunctionsService.transitionToNextStep(config?.next_step)">
+
+      <img  [src]="config?.next_step | typeNextStep | typeIconButton " draggable="false">
+
+      <div class="text-button">
+        <p>{{ config?.next_step | typeNextStep }}</p>
+        <span>{{ config?.next_step | nameNextStep }}</span>
+      </div>
+    </div>
+
+    <div class="delete-step-item"
+      (click)="builderFunctionsService.deleteNextStep(config)">
+      <i class="fas fa-times"></i>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+.text-item-content {
+  width: 100%;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  &:hover {
+    .sidebar-actions {
+      display: flex;
+    }
+  }
+
+  & > .text-content {
+    & > .text {
+      margin-bottom: -6px;
+      position: relative;
+
+      & > textarea {
+        width: 100%;
+        background: #F1F0F0;
+        min-height: 60px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        border: 2px solid transparent;
+        color: #3c4858;
+        height: auto;
+        padding: 8px 10px;
+        outline: none;
+        font-size: 16px;
+
+        &:hover {
+          border-color: #2C8BC2;
+        }
+
+        &:focus, &:active {
+          border-color: #13ce66;
+        }
+      }
+    }
+  }
+}

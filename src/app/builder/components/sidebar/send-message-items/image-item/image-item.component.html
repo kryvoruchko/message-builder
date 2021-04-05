@@ -1,0 +1,46 @@
+<div class="text-item-content position-relative margin-bottom--25">
+
+  <div class="image-content position-relative"
+    [ngClass]="{
+      'border-radius-bottom-no': item?.params['img_url']
+    }">
+    <img
+      *ngIf="item?.params['img_url']"
+      [src]="item?.params['img_url']"
+      alt=""
+      draggable="false"
+      width="100%">
+
+    <label class="file-upload">
+      <i class="far fa-image"></i>
+      <span>Image</span>
+      <input
+        type="file"
+        accept="image/*"
+        (change)="uploadFile(item?.params, $event.target.files)"/>
+    </label>
+  </div>
+
+  <app-buttons-item
+    *ngIf="item?.params['img_url']"
+    [config]="item?.params['buttons']"
+    [opened]="opened"
+    [type]="'some'">
+  </app-buttons-item>
+
+  <div class="sidebar-actions">
+    <button class="trash-sidebar"
+      (click)="builderFunctionsService.deleteItemFromSidebar(item)">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <button class="drop-sidebar-items">
+      <i class="fas fa-arrows-alt-v"></i>
+    </button>
+
+    <button
+      (click)="builderFunctionsService.cloneItemFromSidebar(item)">
+      <i class="far fa-clone"></i>
+    </button>
+  </div>
+</div>

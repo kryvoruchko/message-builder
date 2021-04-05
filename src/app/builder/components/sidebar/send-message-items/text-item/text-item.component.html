@@ -1,0 +1,32 @@
+<div class="text-item-content position-relative margin-bottom--25">
+  <div class="text-content position-relative">
+    <div class="text">
+      <textarea
+        placeholder="Text"
+        maxlength="640"
+        #desc
+        [(ngModel)]="item.params['description']"
+        (change)="builderFunctionsService.setInputValue(item?.params, 'description', desc.value)">
+      </textarea>
+    </div>
+
+    <app-buttons-item
+      [config]="item?.params['buttons']"
+      [opened]="opened"
+      [type]="'some'">
+    </app-buttons-item>
+  </div>
+
+  <div class="sidebar-actions">
+    <button class="trash-sidebar"
+      (click)="builderFunctionsService.deleteItemFromSidebar(item)">
+      <i class="fas fa-times"></i>
+    </button>
+    <button class="drop-sidebar-items">
+      <i class="fas fa-arrows-alt-v"></i>
+    </button>
+    <button (click)="builderFunctionsService.cloneItemFromSidebar(item)">
+      <i class="far fa-clone"></i>
+    </button>
+  </div>
+</div>

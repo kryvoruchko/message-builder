@@ -1,0 +1,24 @@
+<div class="container-buttons-send-message"
+  *ngIf="type === 'some'"
+  data-drag="true">
+
+  <div class="button-content"
+    *ngFor="let button of buttons; let i = index"
+    data-drag="true">
+
+    <div class="name-button" data-drag="true">
+      {{ button?.title }}
+    </div>
+
+    <div class="link-button"
+      [ngClass]="{'active-circle': button?.next_step}"
+      data-drag="true">
+      <i class="far fa-circle"
+        data-drag="false"
+        [id]="button?.uuid"
+        (click)="builderService.createMouseLink(button)">
+      </i>
+    </div>
+
+  </div>
+</div>

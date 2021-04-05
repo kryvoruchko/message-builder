@@ -1,0 +1,38 @@
+<div
+  [ngStyle]="{
+    'transform': 'translate(' + positionX + 'px, ' + positionY + 'px)'
+  }"
+  class="item-container"
+  #element
+  appDragItem
+  (mouseDownEvent)="mouseDown($event, config, builderService.requestDataItems, element)"
+  (mouseUpEvent)="mouseUp()"
+  (mouseMoveEvent)="move($event, config, builderService.requestDataItems)"
+  (click)="builderFunctionsService.requestDataToSidebar(config)">
+
+  <div
+    class="starting-step"
+    *ngIf="config?.start_step"
+    data-drag="true">
+    Start message
+  </div>
+
+  <div class="item-container-action">
+    <button class="btn" (click)="builderFunctionsService.cloneRandomizer(config)">
+      <i class="far fa-clone"></i>
+    </button>
+
+    <button class="btn trash-btn"
+      (click)="builderFunctionsService.deleteMainItem(config)">
+      <i class="far fa-trash-alt"></i>
+    </button>
+  </div>
+
+  <div class="item-container__header" data-drag="true">
+    {{ config?.name }}
+  </div>
+
+  <div class="item-container__body" data-drag="true">
+    <ng-container [config]="config" appDynamicChild></ng-container>
+  </div>
+</div>

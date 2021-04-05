@@ -1,0 +1,22 @@
+<div class="list-main-items"
+  (clickOutside)="close()">
+
+  <button class="main-items-button"
+    (click)="toggle()"
+    [ngClass]="{'active': openListMainItemsCheck}">
+    <i class="fas fa-plus"></i>
+  </button>
+
+  <ul *ngIf="openListMainItemsCheck"
+    class="list-items">
+    <li *ngFor="let item of listMainItems"
+      [ngClass]="{
+        'grey': item?.type === 'send_message',
+        'violet': item?.type === 'randomizer'
+      }"
+      (click)="createMainItemComponent(item?.type, item?.name)">
+      <img [src]="item?.icon" alt="{{ item?.name }}" draggable="false">
+      {{ item?.name }}
+    </li>
+  </ul>
+</div>

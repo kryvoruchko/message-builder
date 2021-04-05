@@ -1,0 +1,26 @@
+<div class="builder-sidebar active"
+  [ngClass]="{
+    'active': builderService.openSidebar
+  }">
+  <div class="sidebar-container">
+
+    <ng-container [ngSwitch]="config?.type">
+      <ng-container  *ngSwitchCase="'send_message'">
+        <app-send-message-items
+          [config]="config">
+        </app-send-message-items>
+      </ng-container>
+
+      <ng-container  *ngSwitchCase="'randomizer'">
+        <app-randomizer-items
+          [config]="config">
+        </app-randomizer-items>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <div class="builder-opening-tab"
+    (click)="openBuilderSidebar()">
+    <i class="fas fa-chevron-right"></i>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div
+  [ngStyle]="{
+    'transform': 'translate(' + positionX + 'px, ' + positionY + 'px)'
+  }"
+  [id]="config?.uuid"
+  #element
+  class="item-container"
+  appDragItem
+  (mouseDownEvent)="mouseDown($event, config, builderService.requestDataItems, element)"
+  (mouseUpEvent)="mouseUp()"
+  (mouseMoveEvent)="move($event, config, builderService.requestDataItems)"
+  (click)="builderFunctionsService.requestDataToSidebar(config)">
+
+  <div
+    class="starting-step"
+    *ngIf="config?.start_step"
+    data-drag="true">
+    Start message
+  </div>
+
+  <div class="item-container-action">
+    <button class="btn"
+      (click)="builderFunctionsService.cloneSendMessage(config)">
+      <i class="far fa-clone"></i>
+    </button>
+
+    <button class="btn trash-btn"
+      (click)="builderFunctionsService.deleteMainItem(config)">
+      <i class="far fa-trash-alt"></i>
+    </button>
+  </div>
+
+  <div class="item-container__header" data-drag="true">
+    <div class="item-container__drag-circle"
+      (click)="builderService.createMouseLink(config)"
+      [ngClass]="{'full': config.arrow.to.id}"
+      [id]="'link_' + config?.uuid"
+      data-drag="false">
+    </div>
+    {{ config?.name }}
+  </div>
+
+  <div class="item-container__body" data-drag="true">
+    <ng-container [config]="config" appDynamicChild></ng-container>
+  </div>
+</div>
