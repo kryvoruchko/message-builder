@@ -239,7 +239,6 @@ export class BuilderService {
     });
 
     if (arr.length > 1) {
-      console.log('asdasdasd');
       this.linksArray.splice(arr[0], 1);
     }
   }

@@ -62,8 +62,11 @@ export class RandomizerItemsComponent {
 
   deleteAction(config: IRandom[], i: number): void {
     if (config.length > 2) {
-      config.splice(i , 1);
-      setTimeout(() => this.builderService.getPointsPosition(), 100);
+      const removeItem = config.splice(i , 1);
+      this.builderService.linksArray = this.builderService.linksArray.filter((link, index) => link.toArr[0].fromObj.id !== removeItem[0].uuid);
+      setTimeout(() => this.builderService.getPointsPosition(
+        this.builderService.config, this.builderService.elem
+      ), 10);
     }
   }
 }

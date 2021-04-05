@@ -38,7 +38,7 @@
         <div class="card-text-container position-relative">
           <div class="text">
             <input type="text"
-              #title placeholder="Titel eingeben..."
+              #title placeholder="Enter title ..."
               maxlength="45"
               [(ngModel)]="card.title"
               (change)="builderFunctionsService.setInputValue(card, 'title', title.value)">
@@ -46,7 +46,7 @@
 
           <div class="text">
             <textarea
-              placeholder="Geben Sie Ihren Untertitel ein..."
+              placeholder="Enter your subtitle ..."
               maxlength="80"
               #subtitle
               [(ngModel)]="card.subtitle"

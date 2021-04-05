@@ -42,14 +42,12 @@ export class BuilderFunctionsService {
   deleteAllConnectors(uuid: string): void {
     this.builderService.linksArray.forEach((item, i) => {
       if (item.toArr[0].fromObj.id === uuid) {
-        console.log('1');
         this.builderService.linksArray.splice(i, 1);
       } else if (item.toArr[0].toObj.id === uuid) {
         this.builderService.requestDataItems.forEach((data: any) => {
           if (data.arrow.to.id === uuid) {
             data.next_step = null;
             data.arrow.to = new Arrow();
-            console.log('2');
             this.builderService.linksArray.splice(i, 1);
           }
           this.deleteVlogElem(data, i, uuid);
@@ -66,7 +64,6 @@ export class BuilderFunctionsService {
             if (button.arrow.to.id === uuid) {
               button.next_step = null;
               button.arrow.to = new Arrow();
-              console.log('3');
               this.builderService.linksArray.splice(i, 1);
             }
           });
@@ -76,7 +73,6 @@ export class BuilderFunctionsService {
               if (button.arrow.to.id === uuid) {
                 button.next_step = null;
                 button.arrow.to = new Arrow();
-                console.log('4');
                 this.builderService.linksArray.splice(i, 1);
               }
             });
@@ -87,9 +83,7 @@ export class BuilderFunctionsService {
       (item.widget_content[0] as IRandomizer).randomData.forEach((data) => {
         if (data.arrow.to.id === uuid) {
           data.next_step = null;
-          // data.type = null;
           data.arrow.to = new Arrow();
-          console.log('5');
           this.builderService.linksArray.splice(i, 1);
         }
       });
@@ -153,7 +147,6 @@ export class BuilderFunctionsService {
         (item.params as IText).buttons.forEach((button) => {
           const index = this.builderService.linksArray.findIndex((link) => link.toArr[0].fromObj.id === button.uuid);
           if (index !== -1) {
-            console.log('6');
             this.builderService.linksArray.splice(index, 1);
           }
         });
@@ -162,7 +155,6 @@ export class BuilderFunctionsService {
           card.buttons.forEach(button => {
             const index = this.builderService.linksArray.findIndex((link) => link.toArr[0].fromObj.id === button.uuid);
             if (index !== -1) {
-              console.log('7');
               this.builderService.linksArray.splice(index, 1);
             }
           });
@@ -416,7 +408,6 @@ export class BuilderFunctionsService {
 
     this.builderService.linksArray.forEach((link, i) => {
       if (link.toArr[0].fromObj.id === item.uuid) {
-        console.log('8');
         this.builderService.linksArray.splice(i, 1);
       }
     });
