@@ -33,14 +33,39 @@
 
     &:hover {
       border-color: #2C8BC2;
+
+      .remove-button {
+        display: flex;
+      }
+    }
+
+    .remove-button {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      left: -38px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      & > i {
+        color: #ff6249;
+        cursor: pointer;
+      }
     }
 
     & > .name-button {
       padding: 7px 7px 7px 15px;
-      color: #2C8BC2;
       width: calc(100% - 70px);
       text-align: center;
       position: relative;
+
+      & > input {
+        outline: none;
+        border: none;
+        text-align: center;
+        color: #2C8BC2;
+      }
     }
 
     & > .link-button {

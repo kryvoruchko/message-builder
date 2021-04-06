@@ -1,32 +1,14 @@
 import { Injectable } from '@angular/core';
+import { DEFAULT_BUILDER_DATA } from '../core/constants/builder-default';
 import { IArrow } from '../models/arrow.model';
 import { IItem } from '../models/builder-item.model';
 import { IButton } from '../models/button.model';
 import { ILink, ILinkItem } from '../models/link.model';
-import { IListItem } from '../models/list-items.model';
-import { IRandomizer } from '../models/randomizer.model';
+import { IRandom, IRandomizer } from '../models/randomizer.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class BuilderService {
-  public listMainItems: IListItem[] = [
-    {
-      name: 'Send Message',
-      type: 'send_message',
-      icon: '../../../../../assets/img/send_message.svg'
-    },
-    {
-      name: 'Randomizer',
-      type: 'randomizer',
-      icon: '../../../../../assets/img/randomizer.svg'
-    },
-  ];
-  public requestDataSidebar: IItem = {
-    type: 'default',
-    name: 'Send message',
-    widget_content: [],
-  };
+  public requestDataSidebar: IItem = DEFAULT_BUILDER_DATA;
   public requestDataItems: IItem[] = [
     {
       uuid: '27c5a143-9d9b-43b7-af14-11cbba435faa',
@@ -102,24 +84,20 @@ export class BuilderService {
 
   public linksArray: ILink[] = [];
   public prev: IArrow[] = [];
-
   public openSidebar: boolean = false;
   public checkOpenSidebar: boolean = false;
-
   public counterDrag: number = 0;
   public zeroPointX: number = 0;
   public zeroPointY: number = 0;
   public counter: number = 0;
-
   public statusCreateLink: string = '';
-
-  public elemLocation: any;
-  public ids: any;
-  public elem: any;
-  public config: any;
-  public scale: any;
-  public obj: any;
-  public parentElem: any;
+  public elemLocation: ClientRect;
+  public ids: (IRandom | IButton)[];
+  public elem: HTMLElement;
+  public config: IItem;
+  public scale: number;
+  public obj: ILink;
+  public parentElem: IItem;
 
   dragRequest(): void {
     if (this.counterDrag === 0) {
@@ -188,46 +166,39 @@ export class BuilderService {
 
     this.requestDataItems.forEach((item: any) => {
       if (item.type === 'send_message') {
-        if (item.uuid === res.toArr[0].fromObj.id) {
-          item.arrow.to = this.obj.toArr[0].toObj;
-          item.next_step = this.config.uuid;
-        }
+        this.setLinkData(item, res);
         item.widget_content.forEach((data) => {
           if (data.type === 'text' || data.type === 'image') {
             data.params.buttons.forEach((button) => {
-              if (button.uuid === res.toArr[0].fromObj.id) {
-                button.arrow.to = this.obj.toArr[0].toObj;
-                button.next_step = this.config.uuid;
-              }
+              this.setLinkData(button, res);
             });
           } else if (data.type === 'card') {
             data.params.cards_array.forEach((card) => {
               card.buttons.forEach((button) => {
-                if (button.uuid === res.toArr[0].fromObj.id) {
-                  button.arrow.to = this.obj.toArr[0].toObj;
-                  button.next_step = this.config.uuid;
-                }
+                this.setLinkData(button, res);
               });
             });
           }
         });
       } else if (item.type === 'randomizer') {
-        (item.widget_content[0] as any).randomData.forEach((data) => {
-          if (data.uuid === res.toArr[0].fromObj.id) {
-            data.arrow.to = this.obj.toArr[0].toObj;
-            data.next_step = this.config.uuid;
-          }
+        (item.widget_content[0] as IRandomizer).randomData.forEach((data) => {
+          this.setLinkData(data, res);
         });
       } else {
-        if (item.uuid === res.toArr[0].fromObj.id) {
-          item.arrow.to = this.obj.toArr[0].toObj;
-          item.next_step = this.config.uuid;
-        }
+        this.setLinkData(item, res);
       }
     });
+
     this.deleteOldLink(this.obj.toArr[0]);
     this.obj = null;
     this.statusCreateLink = null;
+  }
+
+  setLinkData(item: any, res: any): void {
+    if (item.uuid === res.toArr[0].fromObj.id) {
+      item.arrow.to = this.obj.toArr[0].toObj;
+      item.next_step = this.config.uuid;
+    }
   }
 
   deleteOldLink(arrow: ILinkItem): void {
@@ -310,7 +281,7 @@ export class BuilderService {
     }
   }
 
-  collectionItemsId(config: IItem): string[] {
+  collectionItemsId(config: IItem): (IRandom | IButton)[] {
     const idArray = [];
     if (config.type === 'send_message') {
       config.widget_content.forEach((data) => {

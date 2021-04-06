@@ -43,6 +43,10 @@
       overflow: hidden;
       border-bottom: 2px solid #E0E6ED;
 
+      &.border-bottom-no {
+        border-bottom: none;
+      }
+
       & > img {
         width: 100%;
         height: 100%;

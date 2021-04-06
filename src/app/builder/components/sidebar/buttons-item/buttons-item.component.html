@@ -2,8 +2,18 @@
   <div class="button-content"
     *ngFor="let button of config; let i = index">
 
+    <div class="remove-button">
+      <i class="fas fa-times"
+        (click)="builderFunctionsService.deleteButton(config, i)">
+      </i>
+    </div>
+
     <div class="name-button">
-      {{ button?.title }}
+      <input type="text"
+        #button
+        placeholder="Enter button name"
+        [value]="button?.title"
+        [(ngModel)]="button.title">
     </div>
 
     <div class="link-button"

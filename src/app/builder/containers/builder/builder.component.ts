@@ -7,6 +7,17 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
+import { DEFAULT_BUILDER_DATA } from '../../core/constants/builder-default';
+import {
+  CANVAS_SIZE,
+  DEFAULT_POSITION_X,
+  DEFAULT_POSITION_Y,
+  DEFAULT_SCALE,
+  MAX_ZOOM,
+  MIN_ZOOM,
+  SCALE_STEP,
+} from '../../core/constants/host.constants';
+import { scalingRange } from '../../core/utils/set-scaling-values';
 import { IItem } from '../../models/builder-item.model';
 import { BuilderService } from '../../services/builder.service';
 
@@ -20,12 +31,14 @@ export class BuilderComponent implements OnInit, AfterViewInit {
 
   @ViewChild('builderContainer') public builderContainer: ElementRef;
 
-  public scaleList = [1, .95, .9, .85, .8, .75, .7, .65, .6, .55, .5, .45, .4, .35];
   public items = Array<IItem>();
-  public canvasSize = 20000;
-  public positionX = 10000;
-  public positionY = 10000;
-  public scale = .7;
+  public scaleList = [];
+  public canvasSize = CANVAS_SIZE;
+  public positionX = DEFAULT_POSITION_X;
+  public positionY = DEFAULT_POSITION_Y;
+  public scale = DEFAULT_SCALE;
+  public minZoom = MIN_ZOOM;
+  public maxZoom = MAX_ZOOM;
 
   private startContainerPositionX = 0;
   private startContainerPositionY = 0;
@@ -40,7 +53,9 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   constructor(
     public readonly builderService: BuilderService,
     private cdRef: ChangeDetectorRef
-  ) { }
+  ) {
+    this.scaleList = scalingRange(this.maxZoom, this.minZoom, SCALE_STEP);
+  }
 
   public ngOnInit() {
     this.items = this.builderService.requestDataItems;
@@ -60,11 +75,7 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       if (this.builderService.checkOpenSidebar) {
         this.builderService.openSidebar = false;
-        this.builderService.requestDataSidebar = {
-          type: 'default',
-          name: 'Send message',
-          widget_content: []
-        };
+        this.builderService.requestDataSidebar = DEFAULT_BUILDER_DATA;
       }
     }, 50);
     this.startMousePositionX = 0;
@@ -85,12 +96,8 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     this.moving = true;
   }
 
-  public overToCanvasContainer(): void {
-    this.moving = true;
-  }
-
-  public leaveFromCanvasContainer(): void {
-    this.moving = false;
+  public toggleCanvasContainer(value: boolean): void {
+    this.moving = value;
   }
 
   public wheelCanvasContainer(obj: any) {
@@ -139,11 +146,7 @@ export class BuilderComponent implements OnInit, AfterViewInit {
       this.builderService.zeroPointY = zpy;
       this.builderService.counter++;
       this.builderService.openSidebar = false;
-      this.builderService.requestDataSidebar = {
-        type: 'default',
-        name: 'Send message',
-        widget_content: []
-      };
+      this.builderService.requestDataSidebar = DEFAULT_BUILDER_DATA;
     }
   }
 }

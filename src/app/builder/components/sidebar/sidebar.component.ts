@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DEFAULT_BUILDER_DATA } from '../../core/constants/builder-default';
 import { IItem } from '../../models/builder-item.model';
 import { BuilderService } from '../../services/builder.service';
 
@@ -14,10 +15,6 @@ export class SidebarComponent {
 
   public openBuilderSidebar() {
     this.builderService.openSidebar = !this.builderService.openSidebar;
-    this.builderService.requestDataSidebar = {
-      type: 'default',
-      name: 'Default',
-      widget_content: []
-    };
+    this.builderService.requestDataSidebar = DEFAULT_BUILDER_DATA;
   }
 }

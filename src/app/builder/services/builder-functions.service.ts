@@ -10,14 +10,15 @@ import { IItem, Item } from '../models/builder-item.model';
 import { IChild } from '../models/child-item.model';
 import { IButton } from '../models/button.model';
 import { builderUUID } from '../core/utils/uuid-generator';
+import { DEFAULT_ARROW_POSITION } from '../core/constants/host.constants';
+import { DEFAULT_BUILDER_DATA } from '../core/constants/builder-default';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BuilderFunctionsService {
-  public uuid = builderUUID();
-  public openListMainItemsCheck = false;
-  public position = 10500;
+  public openListMainItemsCheck: boolean = false;
+  public position = DEFAULT_ARROW_POSITION;
 
   constructor(
     private readonly builderService: BuilderService,
@@ -25,14 +26,9 @@ export class BuilderFunctionsService {
 
   deleteMainItem(config: IItem): void {
     this.builderService.openSidebar = false;
-    this.builderService.requestDataSidebar = {
-      type: 'default',
-      name: 'Send message',
-      widget_content: []
-    };
+    this.builderService.requestDataSidebar = DEFAULT_BUILDER_DATA;
     this.builderService.requestDataItems.forEach((data, index) => {
-      if (data.uuid === config.uuid && data.start_step) {
-      } else if (data.uuid === config.uuid && !data.start_step) {
+      if (data.uuid === config.uuid && !data.start_step) {
         this.builderService.requestDataItems.splice(index, 1);
         this.deleteAllConnectors(config.uuid);
       }
@@ -115,7 +111,6 @@ export class BuilderFunctionsService {
             title: '',
             subtitle: '',
             img_url: '',
-            url_page: '',
             active: true,
             activeTitlePanel: false,
             activeSubtitlePanel: false,

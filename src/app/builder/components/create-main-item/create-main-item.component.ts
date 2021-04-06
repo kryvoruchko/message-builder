@@ -7,6 +7,7 @@ import { Text } from '../../models/text.model';
 import { IRandomizer, Random, Randomizer } from '../../models/randomizer.model';
 import { builderUUID } from '../../core/utils/uuid-generator';
 import { IListItem } from '../../models/list-items.model';
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-create-main-item',
@@ -26,9 +27,14 @@ export class CreateMainItemComponent {
   openListMainItemsCheck: boolean = false;
 
   constructor(
-    private readonly builderService: BuilderService
+    private readonly builderService: BuilderService,
+    private readonly settingsService: SettingsService,
   ) {
-    this.listMainItems = builderService.listMainItems;
+    this.listMainItems = this.settingsService.listMainItems;
+  }
+
+  test() {
+    console.log(this.builderService.requestDataItems);
   }
 
   toggle(): void {

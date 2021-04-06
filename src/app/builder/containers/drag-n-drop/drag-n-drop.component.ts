@@ -1,4 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { DEFAULT_BUILDER_DATA } from '../../core/constants/builder-default';
 import { IItem } from '../../models/builder-item.model';
 import { BuilderService } from '../../services/builder.service';
 
@@ -95,11 +96,7 @@ export class DragNDropComponent implements OnInit, AfterViewInit {
       this.config.y = this.positionY;
 
       this.builderService.openSidebar = false;
-      this.builderService.requestDataSidebar = {
-        type: 'default',
-        name: 'Send Message',
-        widget_content: []
-      };
+      this.builderService.requestDataSidebar = DEFAULT_BUILDER_DATA;
 
       this.moveArrow(config, this.positionX, this.positionY, data);
     }

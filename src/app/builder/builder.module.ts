@@ -4,6 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import { DragulaModule } from 'ng2-dragula';
 
+import { SettingsService } from './services/settings.service';
+import { BuilderFunctionsService } from './services/builder-functions.service';
+import { BuilderService } from './services/builder.service';
+
 import { BuilderComponent } from './containers/builder/builder.component';
 import { DragNDropComponent } from './containers/drag-n-drop/drag-n-drop.component';
 import { SendMessageComponent } from './components/main-items/send-message/send-message.component';
@@ -74,6 +78,11 @@ import { TypeNextStepPipe } from './core/pipes/type-next-step.pipe';
     NameNextStepPipe,
     SumRandomsValuePipe,
     TypeNextStepPipe,
+  ],
+  providers: [
+    SettingsService,
+    BuilderService,
+    BuilderFunctionsService,
   ],
   exports: [
     BuilderComponent,

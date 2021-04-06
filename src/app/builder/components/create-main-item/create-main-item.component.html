@@ -9,6 +9,7 @@
 
   <ul *ngIf="openListMainItemsCheck"
     class="list-items">
+    <li (click)="test()">test</li>
     <li *ngFor="let item of listMainItems"
       [ngClass]="{
         'grey': item?.type === 'send_message',

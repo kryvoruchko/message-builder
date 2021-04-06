@@ -6,8 +6,8 @@
   (mousedown)="mouseDown($event)"
   (mouseup)="mouseUp()"
   (mousemove)="move($event)"
-  (mouseleave)="leaveFromCanvasContainer()"
-  (mouseover)="overToCanvasContainer()"
+  (mouseleave)="toggleCanvasContainer(false)"
+  (mouseover)="toggleCanvasContainer(true)"
   (wheelDirection)="wheelCanvasContainer($event)"
   #builderContainer>
 
@@ -40,7 +40,7 @@
 <div class="zoom-builder">
   <button
     class="btn zoom-button"
-    [disabled]="scale === 1"
+    [disabled]="scale === maxZoom"
     (click)="zoomBuilder($event, -1)">
     +
   </button>
@@ -51,7 +51,7 @@
 
   <button
     class="btn zoom-button"
-    [disabled]="scale === 0.45"
+    [disabled]="scale === minZoom"
     (click)="zoomBuilder($event, 1)">
     -
   </button>
