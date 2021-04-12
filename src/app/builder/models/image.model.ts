@@ -1,16 +1,16 @@
 import { IButton } from './button.model';
 
 export interface IImage {
-    img_url?: string;
+    imgUrl?: string;
     buttons?: IButton[];
 }
   
 export class Image implements IImage {
-    public img_url?: string;
+    public imgUrl?: string;
     public buttons?: IButton[];
 
     constructor(data?: IImage) {
-        this.img_url = data.hasOwnProperty('img_url') ? data.img_url : '';
+        this.imgUrl = data.hasOwnProperty('imgUrl') ? data.imgUrl : '';
         this.buttons = data.hasOwnProperty('buttons') ? data.buttons : [];
     }
 }

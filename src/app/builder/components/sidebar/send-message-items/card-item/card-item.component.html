@@ -2,7 +2,7 @@
 
   <div class="card-content position-relative">
 
-    <div class="card-array" *ngFor="let card of item?.params['cards_array']; let i = index"
+    <div class="card-array" *ngFor="let card of item?.params['cardsArray']; let i = index"
       [ngClass]="{
         'active': card?.active,
         'border-bottom-transparent': card?.buttons.length > 0
@@ -12,18 +12,18 @@
         <div class="prev-card-items">
           <button class="btn-step"
             [disabled]="i === 0"
-            (click)="builderFunctionsService.prevCardItem(item?.params?.cards_array, i)">
+            (click)="builderFunctionsService.prevCardItem(item?.params?.cardsArray, i)">
             <i class="fas fa-chevron-left"></i>
           </button>
         </div>
 
         <div class="card-image-container">
-          <button *ngIf="card?.img_url"
+          <button *ngIf="card?.imgUrl"
             (click)="builderFunctionsService.deleteImageCardItem(card)"
             class="delete-card-img">
             <i class="fas fa-times"></i>
           </button>
-          <img *ngIf="card?.img_url" [src]="card?.img_url" width="100%" draggable="false">
+          <img *ngIf="card?.imgUrl" [src]="card?.imgUrl" width="100%" draggable="false">
 
           <label class="file-upload">
             <i class="far fa-image"></i>
@@ -57,21 +57,21 @@
 
         <div class="next-card-items">
           <button class="btn-step"
-            *ngIf="i === item?.params?.cards_array.length - 1"
-            [disabled]="item?.params?.cards_array.length === 10"
-            (click)="builderFunctionsService.createNewCardItem(item?.params?.cards_array, i)">
+            *ngIf="i === item?.params?.cardsArray.length - 1"
+            [disabled]="item?.params?.cardsArray.length === 10"
+            (click)="builderFunctionsService.createNewCardItem(item?.params?.cardsArray, i)">
             <i class="fas fa-plus"></i>
           </button>
           <button class="btn-step"
-            *ngIf="i !== item?.params?.cards_array.length - 1"
-            (click)="builderFunctionsService.nextCardItem(item?.params?.cards_array, i)">
+            *ngIf="i !== item?.params?.cardsArray.length - 1"
+            (click)="builderFunctionsService.nextCardItem(item?.params?.cardsArray, i)">
             <i class="fas fa-chevron-right"></i>
           </button>
         </div>
 
         <div class="sidebar-actions">
           <button class="trash-sidebar"
-            (click)="builderFunctionsService.deleteCardItem(item?.params?.cards_array, i, item)">
+            (click)="builderFunctionsService.deleteCardItem(item?.params?.cardsArray, i, item)">
             <i class="fas fa-times"></i>
           </button>
           <button class="drop-sidebar-items">

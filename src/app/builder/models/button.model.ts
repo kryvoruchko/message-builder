@@ -1,5 +1,6 @@
+import { createArrowObj } from '../core/utils/create-arrow';
 import { builderUUID } from '../core/utils/uuid-generator';
-import { Arrow, IArrow } from './arrow.model';
+import { IArrow } from './arrow.model';
 
 export interface IButton {
     uuid?: string;
@@ -8,7 +9,7 @@ export interface IButton {
     click?: number;
     btnValue?: string;
     viewSize?: string;
-    next_step?: string;
+    nextStep?: string;
     arrow?: {
         from?: IArrow,
         to?: IArrow
@@ -22,7 +23,7 @@ export class Button implements IButton {
     public click?: number;
     public btnValue?: string;
     public viewSize?: string;
-    public next_step?: string;
+    public nextStep?: string;
     public arrow?: {
         from?: IArrow,
         to?: IArrow
@@ -35,13 +36,7 @@ export class Button implements IButton {
         this.click = data.hasOwnProperty('click') ? data.click : 0;
         this.btnValue = data.hasOwnProperty('btnValue') ? data.btnValue : null;
         this.viewSize = data.hasOwnProperty('viewSize') ? data.viewSize : 'native';
-        this.next_step = data.hasOwnProperty('next_step') ? data.next_step : null;
-        this.arrow = this.createArrowObj(data);
-    }
-  
-    private createArrowObj (data?: IButton): any {
-        const toArrowData = data.hasOwnProperty('arrow') ? data.arrow.to : null;
-        const fromArrowData = data.hasOwnProperty('arrow') ? data.arrow.from : null;
-        return { from: new Arrow(fromArrowData), to: new Arrow(toArrowData) };
+        this.nextStep = data.hasOwnProperty('nextStep') ? data.nextStep : null;
+        this.arrow = createArrowObj(data);
     }
 }

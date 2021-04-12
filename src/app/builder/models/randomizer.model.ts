@@ -1,6 +1,6 @@
+import { createArrowObj } from '../core/utils/create-arrow';
 import { builderUUID } from '../core/utils/uuid-generator';
-import { Arrow, IArrow } from './arrow.model';
-import { IButton } from './button.model';
+import { IArrow } from './arrow.model';
 
 export interface IRandomizer {
     randomData?: IRandom[];
@@ -17,8 +17,8 @@ export class Randomizer implements IRandomizer {
 export interface IRandom {
     uuid?: string;
     value?: number;
-    random_leter?: string;
-    next_step?: string;
+    randomLeter?: string;
+    nextStep?: string;
     arrow?: {
         from?: IArrow,
         to?: IArrow
@@ -28,8 +28,8 @@ export interface IRandom {
 export class Random implements IRandom {
     public uuid?: string;
     public value?: number;
-    public random_leter?: string;
-    public next_step?: string;
+    public randomLeter?: string;
+    public nextStep?: string;
     public arrow?: {
         from?: IArrow,
         to?: IArrow
@@ -38,14 +38,8 @@ export class Random implements IRandom {
     constructor(data?: IRandom) {
         this.uuid = data.hasOwnProperty('uuid') ? data.uuid : builderUUID();
         this.value = data.hasOwnProperty('value') ? data.value : 50;
-        this.random_leter = data.hasOwnProperty('random_leter') ? data.random_leter : 'A';
-        this.next_step = data.hasOwnProperty('next_step') ? data.next_step : null;
-        this.arrow  = this.createArrowObj(data);
-    }
-  
-    private createArrowObj (data?: IButton): any {
-      const toArrowData = data.hasOwnProperty('arrow') ? data.arrow.to : null;
-      const fromArrowData = data.hasOwnProperty('arrow') ? data.arrow.from : null;
-      return { from: new Arrow(fromArrowData), to: new Arrow(toArrowData) };
+        this.randomLeter = data.hasOwnProperty('randomLeter') ? data.randomLeter : 'A';
+        this.nextStep = data.hasOwnProperty('nextStep') ? data.nextStep : null;
+        this.arrow  = createArrowObj(data);
     }
 }

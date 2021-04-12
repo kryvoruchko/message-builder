@@ -1,0 +1,14 @@
+$light-theme: (
+    background: #f9f9f9,
+);
+
+$dark-theme: (
+    background: #252525,
+);
+
+@include register-themes(
+  (
+    "light": $light-theme,
+    "dark": $dark-theme,
+  )
+);

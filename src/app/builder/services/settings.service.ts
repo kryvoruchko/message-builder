@@ -6,8 +6,8 @@ export class SettingsService {
     public listMainItems: IListItem[] = [
         {
           name: 'Send Message',
-          type: 'send_message',
-          icon: '../../../../../assets/img/send_message.svg'
+          type: 'sendMessage',
+          icon: '../../../../../assets/img/sendMessage.svg'
         },
         {
           name: 'Randomizer',

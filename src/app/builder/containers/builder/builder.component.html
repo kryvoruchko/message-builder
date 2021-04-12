@@ -41,7 +41,7 @@
   <button
     class="btn zoom-button"
     [disabled]="scale === maxZoom"
-    (click)="zoomBuilder($event, -1)">
+    (click)="zoomBuilder(false)">
     +
   </button>
 
@@ -52,7 +52,7 @@
   <button
     class="btn zoom-button"
     [disabled]="scale === minZoom"
-    (click)="zoomBuilder($event, 1)">
+    (click)="zoomBuilder(true)">
     -
   </button>
 </div>

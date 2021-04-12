@@ -35,7 +35,7 @@ export class RandomizerItemsComponent {
     const dataLetter = [];
     const letterCreate = [];
 
-    data.forEach((item) => dataLetter.push(item.random_leter));
+    data.forEach((item) => dataLetter.push(item.randomLeter));
 
     randomLetter.forEach((letter, i) => {
       const lt = dataLetter.indexOf(letter);
@@ -47,7 +47,7 @@ export class RandomizerItemsComponent {
     data.push(new Random({
       uuid: i1,
       value: 50,
-      random_leter: letterCreate[0].name,
+      randomLeter: letterCreate[0].name,
       arrow: {
         from: new Arrow({
           id: i1

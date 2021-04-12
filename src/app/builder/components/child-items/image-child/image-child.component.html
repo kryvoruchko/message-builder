@@ -1,17 +1,17 @@
 <div class="text-items-view">
   <div class="default-content"
-    *ngIf="!config?.params['img_url']"
+    *ngIf="!config?.params['imgUrl']"
     data-drag="true">
     <i class="far fa-image" data-drag="true"></i>
     <span data-drag="true">Image</span>
   </div>
 
   <div class="config-content"
-    *ngIf="config?.params['img_url']"
+    *ngIf="config?.params['imgUrl']"
     [ngClass]="{ 'border-radius-bottom-no': config?.params['buttons'].length > 0 }"
     data-drag="true">
     <img
-      [src]="config?.params?.img_url"
+      [src]="config?.params?.imgUrl"
       alt="Image"
       draggable="false"
       data-drag="true">

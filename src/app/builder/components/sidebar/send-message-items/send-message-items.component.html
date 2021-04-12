@@ -11,8 +11,8 @@
   <div class="switchs">
     <input type="checkbox" id="switch1"
       class="switchs__input"
-      [checked]="config?.start_step"
-      [disabled]="config?.start_step"
+      [checked]="config?.startStep"
+      [disabled]="config?.startStep"
       (change)="builderFunctionsService.setStartingStep(config)">
     <label for="switch1" class="switchs__label">Start</label>
   </div>
@@ -20,8 +20,8 @@
 
 <div class="sidebar-all-items-content">
 
-  <div [dragula]="'HANDLES'" [(dragulaModel)]="config.widget_content">
-    <div *ngFor="let item of config?.widget_content">
+  <div [dragula]="'HANDLES'" [(dragulaModel)]="config.widgetContent">
+    <div *ngFor="let item of config?.widgetContent">
       <div *ngIf="item?.type === 'text'">
         <app-text-item [item]="item" [opened]="config?.opened">
         </app-text-item>
@@ -37,24 +37,24 @@
     </div>
   </div>
 
-  <div class="widget-content-not-found" *ngIf="config?.widget_content.length === 0">
+  <div class="widget-content-not-found" *ngIf="config?.widgetContent.length === 0">
     <span>Use the buttons below to add text and pictures.</span>
   </div>
 
   <div class="created-child-items-container">
     <div class="child-items-row">
       <div class="child-items"
-        (click)="builderFunctionsService.addItemFromSidebar('text', config['widget_content'])">
+        (click)="builderFunctionsService.addItemFromSidebar('text', config['widgetContent'])">
         <i class="fas fa-align-left"></i>
         <span>+ Text</span>
       </div>
       <div class="child-items"
-        (click)="builderFunctionsService.addItemFromSidebar('image', config['widget_content'])">
+        (click)="builderFunctionsService.addItemFromSidebar('image', config['widgetContent'])">
         <i class="far fa-image"></i>
         <span>+ Image</span>
       </div>
       <div class="child-items"
-        (click)="builderFunctionsService.addItemFromSidebar('card', config['widget_content'])">
+        (click)="builderFunctionsService.addItemFromSidebar('card', config['widgetContent'])">
         <i class="fas fa-stop"></i>
         <span>+ Card</span>
       </div>
@@ -62,7 +62,7 @@
   </div>
 
   <div class="continue-next-step margin-bottom--32"
-    *ngIf="!config?.next_step || config?.next_step">
+    *ngIf="!config?.nextStep || config?.nextStep">
     <app-buttons-item
       [type]="'main'"
       [config]="config">

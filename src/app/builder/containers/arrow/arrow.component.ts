@@ -30,14 +30,14 @@ export class ArrowComponent implements DoCheck {
       this.builderService.requestDataItems.forEach((data: any) => {
         this.setToLink(data);
 
-        if (data.type === 'send_message') {
-          data.widget_content.forEach(item => {
+        if (data.type === 'sendMessage') {
+          data.widgetContent.forEach(item => {
             if (item.type === 'text' || item.type === 'image') {
               item.params.buttons.forEach((button) => {
                 this.setToLink(button);
               });
             } else if (item.type === 'card') {
-              item.params.cards_array.forEach((card) => {
+              item.params.cardsArray.forEach((card) => {
                 card.buttons.forEach((button) => {
                   this.setToLink(button);
                 });
@@ -45,7 +45,7 @@ export class ArrowComponent implements DoCheck {
             }
           });
         } else if (data.type === 'randomizer') {
-          (data.widget_content[0] as IRandomizer).randomData.forEach((item) => {
+          (data.widgetContent[0] as IRandomizer).randomData.forEach((item) => {
             this.setToLink(item);
           });
         }
@@ -55,15 +55,15 @@ export class ArrowComponent implements DoCheck {
 
   public deleteLink() {
     this.builderService.requestDataItems.forEach((item: any) => {
-      if (item.type === 'send_message') {
+      if (item.type === 'sendMessage') {
         this.setDefaultLink(item, this.arr.fromObj.id, false);
-        item.widget_content.forEach((data) => {
+        item.widgetContent.forEach((data) => {
           if (data.type === 'text' || data.type === 'image') {
             data.params.buttons.forEach((button) => {
               this.setDefaultLink(button, this.arr.fromObj.id, true);
             });
           } else if (data.type === 'card') {
-            data.params.cards_array.forEach((card) => {
+            data.params.cardsArray.forEach((card) => {
               card.buttons.forEach((button) => {
                 this.setDefaultLink(button, this.arr.fromObj.id, true);
               });
@@ -71,7 +71,7 @@ export class ArrowComponent implements DoCheck {
           }
         });
       } else if (item.type === 'randomizer') {
-        item.widget_content[0].randomData.forEach((data) => {
+        item.widgetContent[0].randomData.forEach((data) => {
           this.setDefaultLink(data, this.arr.fromObj.id, true);
         });
       } else {
@@ -101,7 +101,7 @@ export class ArrowComponent implements DoCheck {
   private setDefaultLink(data: any, id: string, setType: boolean = false): void {
     if (data.uuid === id) {
       data.arrow.to = new Arrow();
-      data.next_step = null;
+      data.nextStep = null;
 
       if (setType) data.type = null;
     }

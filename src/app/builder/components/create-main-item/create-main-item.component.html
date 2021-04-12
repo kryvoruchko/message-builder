@@ -10,9 +10,11 @@
   <ul *ngIf="openListMainItemsCheck"
     class="list-items">
     <li (click)="test()">test</li>
+    <li (click)="changeThemeColor('light', 'dark')">light</li>
+    <li (click)="changeThemeColor('dark', 'light')">dark</li>
     <li *ngFor="let item of listMainItems"
       [ngClass]="{
-        'grey': item?.type === 'send_message',
+        'grey': item?.type === 'sendMessage',
         'violet': item?.type === 'randomizer'
       }"
       (click)="createMainItemComponent(item?.type, item?.name)">

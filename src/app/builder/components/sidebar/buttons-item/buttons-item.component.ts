@@ -35,7 +35,7 @@ export class ButtonsItemComponent implements OnInit {
       uuid: id,
       title: 'New Button #' + (this.config.length + 1),
       type: '',
-      next_step: '',
+      nextStep: '',
       arrow: {
         from: {
           id: id,

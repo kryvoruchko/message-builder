@@ -17,13 +17,13 @@
     </div>
 
     <div class="link-button"
-      *ngIf="!button?.next_step">
+      *ngIf="!button?.nextStep">
       <i class="far fa-circle"></i>
     </div>
 
     <div class="link-button next"
-      *ngIf="button?.next_step"
-      (click)="builderFunctionsService.transitionToNextStep(button?.next_step)">
+      *ngIf="button?.nextStep"
+      (click)="builderFunctionsService.transitionToNextStep(button?.nextStep)">
       <i class="fas fa-chevron-right"></i>
     </div>
   </div>
@@ -32,24 +32,24 @@
 </div>
 
 <div class="container-buttons-send-message" *ngIf="type === 'main'">
-  <button class="bottom-button choose-step" *ngIf="!config?.next_step">
+  <button class="bottom-button choose-step" *ngIf="!config?.nextStep">
     Choose next step
   </button>
 
   <div class="next-step-button margin-0"
-    *ngIf="config?.next_step"
+    *ngIf="config?.nextStep"
     [ngClass]="{
-      'grey': (config?.next_step | typeNextStep) === 'send_message',
-      'violet': (config?.next_step | typeNextStep) === 'randomizer'
+      'grey': (config?.nextStep | typeNextStep) === 'sendMessage',
+      'violet': (config?.nextStep | typeNextStep) === 'randomizer'
     }">
     <div class="info-next-step"
-      (click)="builderFunctionsService.transitionToNextStep(config?.next_step)">
+      (click)="builderFunctionsService.transitionToNextStep(config?.nextStep)">
 
-      <img  [src]="config?.next_step | typeNextStep | typeIconButton " draggable="false">
+      <img  [src]="config?.nextStep | typeNextStep | typeIconButton " draggable="false">
 
       <div class="text-button">
-        <p>{{ config?.next_step | typeNextStep }}</p>
-        <span>{{ config?.next_step | nameNextStep }}</span>
+        <p>{{ config?.nextStep | typeNextStep }}</p>
+        <span>{{ config?.nextStep | nameNextStep }}</span>
       </div>
     </div>
 

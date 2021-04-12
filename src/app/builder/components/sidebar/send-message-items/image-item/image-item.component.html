@@ -2,11 +2,11 @@
 
   <div class="image-content position-relative"
     [ngClass]="{
-      'border-radius-bottom-no': item?.params['img_url']
+      'border-radius-bottom-no': item?.params['imgUrl']
     }">
     <img
-      *ngIf="item?.params['img_url']"
-      [src]="item?.params['img_url']"
+      *ngIf="item?.params['imgUrl']"
+      [src]="item?.params['imgUrl']"
       alt=""
       draggable="false"
       width="100%">
@@ -22,7 +22,7 @@
   </div>
 
   <app-buttons-item
-    *ngIf="item?.params['img_url']"
+    *ngIf="item?.params['imgUrl']"
     [config]="item?.params['buttons']"
     [opened]="opened"
     [type]="'some'">

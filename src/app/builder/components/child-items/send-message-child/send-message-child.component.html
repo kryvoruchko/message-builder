@@ -1,6 +1,6 @@
 <div class="child-items-container" data-drag="true">
   <ng-container
-    *ngFor="let item of config?.widget_content"
+    *ngFor="let item of config?.widgetContent"
     [config]="item"
     [opened]="config?.opened"
     appDynamicChildSendMessage>
@@ -8,7 +8,7 @@
 </div>
 
 <div class="widget-content-not-found"
-  *ngIf="config['widget_content'].length === 0"
+  *ngIf="config['widgetContent'].length === 0"
   data-drag="true">
   <i class="far fa-comment-alt" data-drag="true"></i>
   <span data-drag="true">

@@ -5,6 +5,7 @@ import {
   ElementRef,
   Input,
   OnInit,
+  Renderer2,
   ViewChild
 } from '@angular/core';
 import { DEFAULT_BUILDER_DATA } from '../../core/constants/builder-default';
@@ -52,8 +53,14 @@ export class BuilderComponent implements OnInit, AfterViewInit {
 
   constructor(
     public readonly builderService: BuilderService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private renderer: Renderer2,
   ) {
+    // light, dark
+    localStorage.setItem('theme', 'light');
+    const body = document.body;
+    this.renderer.addClass(body, `sw-theme-${'light'}`);
+
     this.scaleList = scalingRange(this.maxZoom, this.minZoom, SCALE_STEP);
   }
 
@@ -122,9 +129,9 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public zoomBuilder(event, number) {
+  public zoomBuilder(value: boolean) {
     const index = this.scaleList.indexOf(this.scale);
-    (number > 0) ? this.incrementScale(index) : this.decrementScale(index);
+    (value) ? this.incrementScale(index) : this.decrementScale(index);
     this.builderService.scaleMove();
     const e = window.event;
 

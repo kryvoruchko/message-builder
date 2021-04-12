@@ -10,5 +10,21 @@
 </head>
 <body>
   <app-root></app-root>
+
+  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-analytics.js"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyBDnuvGvXOXp7-ijqHXtxSHD-_iC64vkuU",
+      authDomain: "angular-builder-message.firebaseapp.com",
+      projectId: "angular-builder-message",
+      storageBucket: "angular-builder-message.appspot.com",
+      messagingSenderId: "705672263289",
+      appId: "1:705672263289:web:262ffd6e4550fcd8f606a8",
+      measurementId: "G-4GT16VF4CY"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
 </body>
 </html>

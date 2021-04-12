@@ -6,8 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TypeIconButtonPipe implements PipeTransform {
   transform(value: any, args?: any): any {
     switch (value) {
-      case 'send_message':
-        value = '../../../../../assets/img/send_message.svg';
+      case 'sendMessage':
+        value = '../../../../../assets/img/sendMessage.svg';
         break;
       case 'randomizer':
         value = '../../../../../assets/img/randomizer.svg';

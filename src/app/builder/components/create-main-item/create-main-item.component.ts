@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Renderer2 } from '@angular/core';
 import { BuilderService } from '../../services/builder.service';
 import { Arrow } from '../../models/arrow.model';
 import { Item } from '../../models/builder-item.model';
@@ -29,12 +29,19 @@ export class CreateMainItemComponent {
   constructor(
     private readonly builderService: BuilderService,
     private readonly settingsService: SettingsService,
+    private renderer: Renderer2,
   ) {
     this.listMainItems = this.settingsService.listMainItems;
   }
 
   test() {
     console.log(this.builderService.requestDataItems);
+  }
+
+  changeThemeColor(color: string, preColor: string): void {
+    const body = document.body;
+    this.renderer.removeClass(body, `sw-theme-${preColor}`);
+    this.renderer.addClass(body, `sw-theme-${color}`);
   }
 
   toggle(): void {
@@ -65,14 +72,14 @@ export class CreateMainItemComponent {
       },
       type,
       name,
-      start_step: false,
-      next_step: null,
-      widget_content: [],
+      startStep: false,
+      nextStep: null,
+      widgetContent: [],
       x: x + containerWidth / 2 - 200,
       y: y + containerHeight / 2 - 125
     });
 
-    this.switchMain(type, data.widget_content);
+    this.switchMain(type, data.widgetContent);
     this.builderService.requestDataItems.push(data as any);
   }
 
@@ -81,7 +88,7 @@ export class CreateMainItemComponent {
     const i2 = builderUUID();
 
     switch (type) {
-      case 'send_message':
+      case 'sendMessage':
         data.push(new Child({
           uuid: i1,
           type: 'text',
@@ -92,7 +99,7 @@ export class CreateMainItemComponent {
         data.push(new Randomizer({
           randomData: [
             new Random({
-              random_leter: 'A',
+              randomLeter: 'A',
               uuid: i1,
               arrow: {
                 from: new Arrow({
@@ -102,7 +109,7 @@ export class CreateMainItemComponent {
               }
             }),
             new Random({
-              random_leter: 'B',
+              randomLeter: 'B',
               uuid: i2,
               arrow: {
                 from: new Arrow({

@@ -27,7 +27,7 @@ export class CardItemComponent {
       reader.readAsDataURL(files[0]); 
       reader.onload = () => { 
         const imgURL = reader.result;
-        item.img_url = imgURL as string;
+        item.imgUrl = imgURL as string;
 
         setTimeout(() => this.builderService.getPointsPosition(), 10);
       }

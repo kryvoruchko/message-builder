@@ -61,16 +61,16 @@ export class SendMessageItemsComponent implements OnInit {
       item.y = item.y + this.replaceDataCoordinates.differenceY;
     }
 
-    if (item.next_step) {
+    if (item.nextStep) {
       if (!dataIds) {
-        this.replaceDataIds.push(item.next_step);
+        this.replaceDataIds.push(item.nextStep);
       } else {
-        item.next_step = this.replaceId(item.next_step, dataIds);
+        item.nextStep = this.replaceId(item.nextStep, dataIds);
       }
     }
 
     switch (item.type) {
-      case 'send_message':
+      case 'sendMessage':
         this.replaceSendMessage(item, dataIds);
         break;
       case 'randomizer':
@@ -80,7 +80,7 @@ export class SendMessageItemsComponent implements OnInit {
   }
 
   public replaceRandomizer(data, dataIds) {
-    data.widget_content[0].randomData.forEach((item) => {
+    data.widgetContent[0].randomData.forEach((item) => {
       if (!dataIds) {
         this.replaceDataIds.push(item.uuid);
         this.replaceArrows(item.arrow, dataIds);
@@ -88,63 +88,46 @@ export class SendMessageItemsComponent implements OnInit {
         item.uuid = this.replaceId(item.uuid, dataIds);
         this.replaceArrows(item.arrow, dataIds);
       }
-      if (item.next_step) {
+      if (item.nextStep) {
         if (!dataIds) {
-          this.replaceDataIds.push(item.next_step);
+          this.replaceDataIds.push(item.nextStep);
         } else {
-          item.next_step = this.replaceId(item.next_step, dataIds);
+          item.nextStep = this.replaceId(item.nextStep, dataIds);
         }
       }
     });
   }
 
   public replaceArrows(arrow, dataIds) {
-    if (arrow.from.id) {
-      if (!dataIds) {
-        this.replaceDataIds.push(arrow.from.id);
-      } else {
-        arrow.from.id = this.replaceId(arrow.from.id, dataIds);
-        arrow.from.fromItemX = arrow.from.fromItemX + this.replaceDataCoordinates.differenceX;
-        arrow.from.fromItemY = arrow.from.fromItemY + this.replaceDataCoordinates.differenceY;
+    const keys = ['from', 'to'];
+    keys.forEach(k => {
+      if (arrow[k].id) {
+        if (!dataIds) {
+          this.replaceDataIds.push(arrow[k].id);
+        } else {
+          arrow[k].id = this.replaceId(arrow[k].id, dataIds);
+          arrow[k].fromItemX = arrow[k].fromItemX + this.replaceDataCoordinates.differenceX;
+          arrow[k].fromItemY = arrow[k].fromItemY + this.replaceDataCoordinates.differenceY;
+        }
       }
-    }
-    if (arrow.to.id) {
-      if (!dataIds) {
-        this.replaceDataIds.push(arrow.to.id);
-      } else {
-        arrow.to.id = this.replaceId(arrow.to.id, dataIds);
-        arrow.to.toItemX = arrow.to.toItemX + this.replaceDataCoordinates.differenceX;
-        arrow.to.toItemY = arrow.to.toItemY + this.replaceDataCoordinates.differenceY;
-      }
-    }
+    });
   }
 
   public replaceSendMessage(data, dataIds) {
-    data.widget_content.forEach(item => {
+    data.widgetContent.forEach(item => {
+      (!dataIds) ?
+        this.replaceDataIds.push(item.uuid) :
+        item.uuid = this.replaceId(item.uuid, dataIds);
+
       switch (item.type) {
         case 'text':
-          if (!dataIds) {
-            this.replaceDataIds.push(item.uuid);
-          } else {
-            item.uuid = this.replaceId(item.uuid, dataIds);
-          }
           this.replaceButton(item.params.buttons, dataIds);
           break;
         case 'image':
-          if (!dataIds) {
-            this.replaceDataIds.push(item.uuid);
-          } else {
-            item.uuid = this.replaceId(item.uuid, dataIds);
-          }
           this.replaceButton(item.params.buttons, dataIds);
           break;
         case 'card':
-          if (!dataIds) {
-            this.replaceDataIds.push(item.uuid);
-          } else {
-            item.uuid = this.replaceId(item.uuid, dataIds);
-          }
-          item.params.cards_array.forEach(card => {
+          item.params.cardsArray.forEach(card => {
             this.replaceButton(card.buttons, dataIds);
           });
           break;
@@ -161,11 +144,11 @@ export class SendMessageItemsComponent implements OnInit {
           button.uuid = this.replaceId(button.uuid, dataIds);
         }
         this.replaceArrows(button.arrow, dataIds);
-        if (button.next_step) {
+        if (button.nextStep) {
           if (!dataIds) {
-            this.replaceDataIds.push(button.next_step);
+            this.replaceDataIds.push(button.nextStep);
           } else {
-            button.next_step = this.replaceId(button.next_step, dataIds);
+            button.nextStep = this.replaceId(button.nextStep, dataIds);
           }
         }
       });

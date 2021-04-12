@@ -13,7 +13,7 @@ import { RandomizerChildComponent } from '../../components/child-items/randomize
 import { IItem } from '../../models/builder-item.model';
 
 const components = {
-  'send_message': SendMessageChildComponent,
+  'sendMessage': SendMessageChildComponent,
   'randomizer': RandomizerChildComponent,
 };
 

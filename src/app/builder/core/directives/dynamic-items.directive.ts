@@ -13,7 +13,7 @@ import { RandomizerComponent } from '../../components/main-items/randomizer/rand
 import { IItem } from '../../models/builder-item.model';
 
 const components = {
-  'send_message': SendMessageComponent,
+  'sendMessage': SendMessageComponent,
   'randomizer': RandomizerComponent,
 };
 

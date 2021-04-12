@@ -1,13 +1,13 @@
 import { IButton } from './button.model';
 
 export interface ICardChild {
-    cards_array: Card[];
+    cardsArray: Card[];
 }
   
 export class CardChild implements ICardChild {
-    public cards_array: Card[];
+    public cardsArray: Card[];
     constructor(data?: Card[]) {
-        this.cards_array = this.returnNewCard(data);
+        this.cardsArray = this.returnNewCard(data);
     }
   
     private returnNewCard(cards) {
@@ -22,7 +22,7 @@ export class CardChild implements ICardChild {
 export interface ICard {
     title?: string;
     subtitle?: string;
-    img_url?: string;
+    imgUrl?: string;
     active?: boolean;
     activeSubtitlePanel?: boolean;
     activeTitlePanel?: boolean;
@@ -32,7 +32,7 @@ export interface ICard {
 export class Card implements ICard {
     public title?: string;
     public subtitle?: string;
-    public img_url?: string;
+    public imgUrl?: string;
     public active?: boolean;
     public activeSubtitlePanel?: boolean;
     public activeTitlePanel?: boolean;
@@ -41,7 +41,7 @@ export class Card implements ICard {
     constructor(data?: Card) {
         this.title = data.hasOwnProperty('title') ? data.title : '';
         this.subtitle = data.hasOwnProperty('subtitle') ? data.subtitle : '';
-        this.img_url = data.hasOwnProperty('img_url') ? data.img_url : '';
+        this.imgUrl = data.hasOwnProperty('imgUrl') ? data.imgUrl : '';
         this.active = data.hasOwnProperty('active') ? data.active : true;
         this.buttons = data.hasOwnProperty('buttons') ? data.buttons : [];
         this.activeSubtitlePanel = data.hasOwnProperty('activeSubtitlePanel') ? data.activeSubtitlePanel : false;

@@ -28,7 +28,7 @@ export class BuilderFunctionsService {
     this.builderService.openSidebar = false;
     this.builderService.requestDataSidebar = DEFAULT_BUILDER_DATA;
     this.builderService.requestDataItems.forEach((data, index) => {
-      if (data.uuid === config.uuid && !data.start_step) {
+      if (data.uuid === config.uuid && !data.startStep) {
         this.builderService.requestDataItems.splice(index, 1);
         this.deleteAllConnectors(config.uuid);
       }
@@ -42,7 +42,7 @@ export class BuilderFunctionsService {
       } else if (item.toArr[0].toObj.id === uuid) {
         this.builderService.requestDataItems.forEach((data: any) => {
           if (data.arrow.to.id === uuid) {
-            data.next_step = null;
+            data.nextStep = null;
             data.arrow.to = new Arrow();
             this.builderService.linksArray.splice(i, 1);
           }
@@ -53,21 +53,21 @@ export class BuilderFunctionsService {
   }
 
   deleteVlogElem(item: IItem, i: number, uuid: string): void {
-    if (item.type === 'send_message') {
-      item.widget_content.forEach((data) => {
+    if (item.type === 'sendMessage') {
+      item.widgetContent.forEach((data) => {
         if (data.type === 'text' || data.type === 'image') {
           data.params.buttons.forEach((button) => {
             if (button.arrow.to.id === uuid) {
-              button.next_step = null;
+              button.nextStep = null;
               button.arrow.to = new Arrow();
               this.builderService.linksArray.splice(i, 1);
             }
           });
         } else if (data.type === 'card') {
-          data.params.cards_array.forEach((card) => {
+          data.params.cardsArray.forEach((card) => {
             card.buttons.forEach((button) => {
               if (button.arrow.to.id === uuid) {
-                button.next_step = null;
+                button.nextStep = null;
                 button.arrow.to = new Arrow();
                 this.builderService.linksArray.splice(i, 1);
               }
@@ -76,9 +76,9 @@ export class BuilderFunctionsService {
         }
       });
     } else if (item.type === 'randomizer') {
-      (item.widget_content[0] as IRandomizer).randomData.forEach((data) => {
+      (item.widgetContent[0] as IRandomizer).randomData.forEach((data) => {
         if (data.arrow.to.id === uuid) {
-          data.next_step = null;
+          data.nextStep = null;
           data.arrow.to = new Arrow();
           this.builderService.linksArray.splice(i, 1);
         }
@@ -101,7 +101,7 @@ export class BuilderFunctionsService {
         break;
       case 'image':
         data.params = new Image({
-          img_url: '',
+          imgUrl: '',
           buttons: []
         });
         break;
@@ -110,7 +110,7 @@ export class BuilderFunctionsService {
           {
             title: '',
             subtitle: '',
-            img_url: '',
+            imgUrl: '',
             active: true,
             activeTitlePanel: false,
             activeSubtitlePanel: false,
@@ -127,10 +127,10 @@ export class BuilderFunctionsService {
   }
 
   deleteItemFromSidebar(item: IChild): void {
-    this.builderService.requestDataSidebar.widget_content.forEach((data, index) => {
+    this.builderService.requestDataSidebar.widgetContent.forEach((data, index) => {
       if (data.uuid === item.uuid) {
         this.deleteItemsSidebar(item);
-        this.builderService.requestDataSidebar.widget_content.splice(index, 1);
+        this.builderService.requestDataSidebar.widgetContent.splice(index, 1);
         setTimeout(() => this.builderService.getPointsPosition(), 10);
       }
     });
@@ -146,7 +146,7 @@ export class BuilderFunctionsService {
           }
         });
       } else if (item.type === 'card') {
-        (item.params as ICardChild).cards_array.forEach((card) => {
+        (item.params as ICardChild).cardsArray.forEach((card) => {
           card.buttons.forEach(button => {
             const index = this.builderService.linksArray.findIndex((link) => link.toArr[0].fromObj.id === button.uuid);
             if (index !== -1) {
@@ -160,7 +160,7 @@ export class BuilderFunctionsService {
 
   cloneItemFromSidebar(item: IChild): void {
     const data = this.cloneObjects(item);
-    this.builderService.requestDataSidebar.widget_content.push(data);
+    this.builderService.requestDataSidebar.widgetContent.push(data);
   }
 
   cloneObjects(obj: IChild): IChild {
@@ -177,7 +177,7 @@ export class BuilderFunctionsService {
         break;
       case 'card':
         data.uuid = builderUUID();
-        data.params.cards_array.forEach((card) => {
+        data.params.cardsArray.forEach((card) => {
           this.resetButtonUUID(card.buttons);
         });
         break;
@@ -195,10 +195,10 @@ export class BuilderFunctionsService {
     const id = builderUUID();
     data['id'] = data['id'] + 1;
     data['uuid'] = id;
-    data['start_step'] = false;
+    data['startStep'] = false;
     data['x'] = data['x'] + 20;
     data['y'] = data['y'] + 20;
-    data['next_step'] = null;
+    data['nextStep'] = null;
     data.arrow.to = new Arrow();
     data.arrow.from = new Arrow({
       id: id,
@@ -206,7 +206,7 @@ export class BuilderFunctionsService {
       fromItemY: data['y'] + 20,
     });
 
-    data.widget_content.forEach((item) => {
+    data.widgetContent.forEach((item) => {
       switch (item.type) {
         case 'text':
           item.uuid = builderUUID();
@@ -218,7 +218,7 @@ export class BuilderFunctionsService {
           break;
         case 'card':
           item.uuid = builderUUID();
-          item.params.cards_array.forEach((card) => {
+          item.params.cardsArray.forEach((card) => {
             this.resetButtonUUID(card.buttons);
           });
           break;
@@ -235,14 +235,14 @@ export class BuilderFunctionsService {
 
     data['id'] = data['id'] + 1;
     data['uuid'] = builderUUID();
-    data['start_step'] = false;
+    data['startStep'] = false;
     data['x'] = data['x'] + 20;
     data['y'] = data['y'] + 20;
 
-    data.widget_content[0].randomData.forEach((item) => {
+    data.widgetContent[0].randomData.forEach((item) => {
       const id = builderUUID();
       item.uuid = id;
-      item.next_step = null;
+      item.nextStep = null;
       item.arrow.to = new Arrow();
       item.arrow.from = new Arrow({
         id: id
@@ -256,10 +256,8 @@ export class BuilderFunctionsService {
     buttons.forEach((button) => {
       const id = builderUUID();
       button.uuid = id;
-      button.next_step = null;
-      if (button.type !== 'open_website' && button.type !== 'call_number') {
-        button.type = null;
-      }
+      button.nextStep = null;
+      button.type = null;
       button.arrow.to = new Arrow();
       button.arrow.from = new Arrow({
         id: id
@@ -313,7 +311,7 @@ export class BuilderFunctionsService {
   }
 
   deleteImageCardItem(card: ICard): void {
-    card.img_url = null;
+    card.imgUrl = null;
   }
 
   openListMainItems(value: boolean): void {
@@ -338,14 +336,14 @@ export class BuilderFunctionsService {
       },
       type: type,
       name: name,
-      next_step: null,
-      start_step: false,
-      widget_content: [],
+      nextStep: null,
+      startStep: false,
+      widgetContent: [],
       x: this.position,
       y: this.position
     });
 
-    this.switchMainData(type, data.widget_content);
+    this.switchMainData(type, data.widgetContent);
 
     this.builderService.requestDataItems.push(data as any);
     return data;
@@ -353,7 +351,7 @@ export class BuilderFunctionsService {
 
   switchMainData(type: string, data: IChild[] | IRandomizer[]): void {
     switch (type) {
-      case 'send_message':
+      case 'sendMessage':
         data.push(new Child({
           uuid: builderUUID(),
           type: 'text',
@@ -367,7 +365,7 @@ export class BuilderFunctionsService {
           new Randomizer({
             randomData: [
               new Random({
-                random_leter: 'A',
+                randomLeter: 'A',
                 uuid: id1,
                 arrow: {
                   from: new Arrow({
@@ -377,7 +375,7 @@ export class BuilderFunctionsService {
                 }
               }),
               new Random({
-                random_leter: 'B',
+                randomLeter: 'B',
                 uuid: id2,
                 arrow: {
                   from: new Arrow({
@@ -394,11 +392,9 @@ export class BuilderFunctionsService {
   }
 
   deleteNextStep(item: IButton): void {
-    item.next_step = null;
-    if (!item.hasOwnProperty('widget_content')) {
-      if (item.type !== 'open_website') {
-        item.type = null;
-      }
+    item.nextStep = null;
+    if (!item.hasOwnProperty('widgetContent')) {
+      item.type = null;
     }
 
     this.builderService.linksArray.forEach((link, i) => {
@@ -406,11 +402,7 @@ export class BuilderFunctionsService {
         this.builderService.linksArray.splice(i, 1);
       }
     });
-    if (item.hasOwnProperty('answer_check')) {
-      item['buttons'][0].arrow.to = new Arrow();
-    } else {
-      item.arrow.to = new Arrow();
-    }
+    item.arrow.to = new Arrow();
     setTimeout(() => this.builderService.getPointsPosition(), 10);
   }
 
@@ -424,9 +416,9 @@ export class BuilderFunctionsService {
     const item = array.splice(i, 1);
   }
 
-  transitionToNextStep(next_step: string): void {
+  transitionToNextStep(nextStep: string): void {
     this.builderService.requestDataItems.forEach((item) => {
-      if (item.uuid === next_step) {
+      if (item.uuid === nextStep) {
         this.builderService.requestDataSidebar = item;
       }
     });
@@ -434,8 +426,8 @@ export class BuilderFunctionsService {
 
   setStartingStep(config: IItem): void {
     this.builderService.requestDataItems.forEach((data) => {
-      data.start_step = false;
+      data.startStep = false;
     });
-    config.start_step = true;
+    config.startStep = true;
   }
 }

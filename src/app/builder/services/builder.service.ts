@@ -28,11 +28,11 @@ export class BuilderService {
           fromItemY: null
         }
       },
-      type: 'send_message',
+      type: 'sendMessage',
       name: 'Send Message',
-      next_step: 'e8433e9f-55f3-4438-84cc-f3d83e5fc280',
-      start_step: false,
-      widget_content: [
+      nextStep: 'e8433e9f-55f3-4438-84cc-f3d83e5fc280',
+      startStep: false,
+      widgetContent: [
         {
           uuid: '29fe73d9-9ce2-43da-bba7-1583b7e7b884',
           type: 'text',
@@ -63,11 +63,11 @@ export class BuilderService {
           fromItemY: null
         }
       },
-      type: 'send_message',
+      type: 'sendMessage',
       name: 'Send Message',
-      next_step: null,
-      start_step: false,
-      widget_content: [
+      nextStep: null,
+      startStep: false,
+      widgetContent: [
         {
           uuid: '608ccbc4-e8a7-480a-82a5-43268efc4d86',
           type: 'text',
@@ -165,15 +165,15 @@ export class BuilderService {
     this.obj.to = this.config.uuid;
 
     this.requestDataItems.forEach((item: any) => {
-      if (item.type === 'send_message') {
+      if (item.type === 'sendMessage') {
         this.setLinkData(item, res);
-        item.widget_content.forEach((data) => {
+        item.widgetContent.forEach((data) => {
           if (data.type === 'text' || data.type === 'image') {
             data.params.buttons.forEach((button) => {
               this.setLinkData(button, res);
             });
           } else if (data.type === 'card') {
-            data.params.cards_array.forEach((card) => {
+            data.params.cardsArray.forEach((card) => {
               card.buttons.forEach((button) => {
                 this.setLinkData(button, res);
               });
@@ -181,7 +181,7 @@ export class BuilderService {
           }
         });
       } else if (item.type === 'randomizer') {
-        (item.widget_content[0] as IRandomizer).randomData.forEach((data) => {
+        (item.widgetContent[0] as IRandomizer).randomData.forEach((data) => {
           this.setLinkData(data, res);
         });
       } else {
@@ -197,7 +197,7 @@ export class BuilderService {
   setLinkData(item: any, res: any): void {
     if (item.uuid === res.toArr[0].fromObj.id) {
       item.arrow.to = this.obj.toArr[0].toObj;
-      item.next_step = this.config.uuid;
+      item.nextStep = this.config.uuid;
     }
   }
 
@@ -226,8 +226,8 @@ export class BuilderService {
   }
 
   bustData(item: IItem, uuid: string): void {
-    if (item.type === 'send_message') {
-      item.widget_content.forEach((data) => {
+    if (item.type === 'sendMessage') {
+      item.widgetContent.forEach((data) => {
         if (data.type === 'text' || data.type === 'image') {
           data.params.buttons.forEach((button) => {
             if (button.arrow.to.id === uuid) {
@@ -235,7 +235,7 @@ export class BuilderService {
             }
           });
         } else if (data.type === 'card') {
-          data.params.cards_array.forEach((card) => {
+          data.params.cardsArray.forEach((card) => {
             card.buttons.forEach((button) => {
               if (button.arrow.to.id === uuid) {
                 this.prev.push(button.arrow.to);
@@ -245,7 +245,7 @@ export class BuilderService {
         }
       });
     } else if (item.type === 'randomizer') {
-      (item.widget_content[0] as IRandomizer).randomData.forEach((data) => {
+      (item.widgetContent[0] as IRandomizer).randomData.forEach((data) => {
         if (data.arrow.to.id === uuid) {
           this.prev.push(data.arrow.to);
         }
@@ -283,14 +283,14 @@ export class BuilderService {
 
   collectionItemsId(config: IItem): (IRandom | IButton)[] {
     const idArray = [];
-    if (config.type === 'send_message') {
-      config.widget_content.forEach((data) => {
+    if (config.type === 'sendMessage') {
+      config.widgetContent.forEach((data) => {
         if (data.type === 'text' || data.type === 'image') {
           data.params.buttons.forEach((button) => {
             idArray.push(button);
           });
         } else if (data.type === 'card') {
-          data.params.cards_array.forEach((card) => {
+          data.params.cardsArray.forEach((card) => {
             card.buttons.forEach((button) => {
               idArray.push(button);
             });
@@ -298,7 +298,7 @@ export class BuilderService {
         }
       });
     } else if (config.type === 'randomizer') {
-      (config.widget_content[0] as IRandomizer).randomData.forEach((data) => {
+      (config.widgetContent[0] as IRandomizer).randomData.forEach((data) => {
         idArray.push(data);
       });
     }
